@@ -12,12 +12,12 @@ from deep_nn import dnn_model, dnn_predict
 from utils import saveParams, loadParams
 
 def load_h5_data():
-    train_dataset = h5py.File('ml/datasets/train_catvnoncat.h5', 'r')
+    train_dataset = h5py.File('datasets/train_catvnoncat.h5', 'r')
     train_X = np.array(train_dataset['train_set_x'][:])
     train_Y = np.array(train_dataset['train_set_y'][:])
     
     train_Y = train_Y.reshape((1, train_Y.shape[0]))
-    test_dataset = h5py.File("ml/datasets/test_catvnoncat.h5", 'r')
+    test_dataset = h5py.File("datasets/test_catvnoncat.h5", 'r')
     test_X = np.array(test_dataset['test_set_x'][:])
     test_Y = np.array(test_dataset['test_set_y'][:])
     test_Y = test_Y.reshape((1, test_Y.shape[0]))
@@ -64,7 +64,7 @@ def use_logist():
     w = np.array(wl).reshape((64*64*3, 1))
     b = float(p[1])
 
-    image, dataset = load_image("ml/image/gou5.jpg")
+    image, dataset = load_image("image/gou5.jpg")
     plt.imshow(image)
     predict = logist_predict(w, b, dataset)
     if predict[0, 0] == 1:
@@ -106,7 +106,7 @@ def retrain_dnn():
 
 def use_dnn():
     params = loadParams('dnn.h5')
-    image, dataset = load_image("ml/image/gou2.jpg")
+    image, dataset = load_image("image/gou2.jpg")
     p = dnn_predict(params, dataset)
     print(p)
 
@@ -114,7 +114,7 @@ def saveImage():
     X_train, Y_train, X_test, Y_test, _ = load_h5_data()
     #print(X_train[0].shape)
     for i in range(len(X_test)):
-        plt.imsave('ml/test/%d.jpg' % (i + 1), X_test[i])
+        plt.imsave('test/%d.jpg' % (i + 1), X_test[i])
 
 if __name__ == '__main__':
     #retrain_logist()
